@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import fs from 'fs'
 
-export default function Home({name, trace}) {
+export default function Home({name, trace, content}) {
 
   return (
     <div className={styles.container}>
@@ -21,6 +22,8 @@ export default function Home({name, trace}) {
           Get started by editing{' '}
           <code className={styles.code}>pages/index.js</code>
         </p>
+
+        {content}
 
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
@@ -68,6 +71,10 @@ export default function Home({name, trace}) {
 }
 
 export async function getServerSideProps(context) {
+  let content = 'not found'
+  if (fs.existsSync('/var/task/.next/serverless/pages/index.js')) {
+    content = fs.readFileSync('/var/task/.next/serverless/pages/index.js', 'utf-8')
+  }
   let stack;
   try {
     throw new Error()
@@ -76,6 +83,7 @@ export async function getServerSideProps(context) {
   }
   return {
     props: {
+      content,
       trace: stack,
       name: "kjc"
     }, // will be passed to the page component as props
