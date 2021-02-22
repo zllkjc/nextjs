@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
-export default function Home() {
+export default function Home({name}) {
+
   return (
     <div className={styles.container}>
       <Head>
@@ -11,7 +12,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to <a href="https://nextjs.org">Next.js!  {name}</a>
         </h1>
 
         <p className={styles.description}>
@@ -66,7 +67,8 @@ export default function Home() {
 
 export async function getServerSideProps(context) {
   return {
-    props: {}, // will be passed to the page component as props
+    props: {
+      name: "kjc"
+    }, // will be passed to the page component as props
   }
 }
-
