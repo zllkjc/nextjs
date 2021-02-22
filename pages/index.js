@@ -81,6 +81,8 @@ export async function getServerSideProps(context) {
   } catch(e) {
     stack = e.stack
   }
+  
+  console.log(content)
   return {
     props: {
       content,
